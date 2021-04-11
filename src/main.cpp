@@ -11,4 +11,5 @@ int main()
     Node *root = new Node(board, nullptr);
     Search *search = new Search(root);
     search->UniformCostSearch();
+    
 }

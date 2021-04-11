@@ -168,7 +168,7 @@ bool Node::isSolvable(){
     }
 }
 
-// The cost function is defined as the number of misplaced tiles on the board
+// The cost function is defined as the number of misplaced tiles on the board.
 int Node::calculateCost(){ //  1 2 3 4 5 6 7 8  0
     int boardDifference = 0;
     std::vector<char> temp;

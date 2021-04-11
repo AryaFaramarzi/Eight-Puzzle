@@ -9,7 +9,6 @@ private:
     std::vector<std::vector<char>> board;
     Node *parent;
     int cost;
-
 public:
     // Getters and Setters
     std::vector<std::vector<char>> getBoard() { return board; }

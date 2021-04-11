@@ -2,7 +2,7 @@
 #include <queue>
 
 struct CustomCompare
-{
+{ 
     bool operator()(Node* lhs, Node* rhs)
     {
         return lhs->getCost() < rhs->getCost();
@@ -55,6 +55,6 @@ void Search::UniformCostSearch() //    priority_queue<int,CustomCompare > pq;
                 q.push(down);
             }
         }
-}
+    }
 
 }
