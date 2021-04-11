@@ -1,5 +1,5 @@
-#include "header/Node.h"
-#include "header/Search.h"
+#include "../header/Node.h"
+#include "../header/Search.h"
 using namespace std;
 int main()
 {
