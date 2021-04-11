@@ -9,14 +9,17 @@ private:
     std::vector<std::vector<char>> board;
     Node *parent;
     int cost;
+    int depth;
 public:
     // Getters and Setters
     std::vector<std::vector<char>> getBoard() { return board; }
     Node *getParent() { return parent; }
     int getCost() {return cost;}
+    int getDepth() {return depth;}
     void setBoard(std::vector<std::vector<char>> board) { this->board = board; }
     void setParent(Node *parent) { this->parent = parent; }
     void setCost(int cost) {this->cost = cost;}
+    void setDepth(int depth) { this->depth = depth; }
 
     // Additional helpful methods
     void printBoard();
@@ -37,7 +40,7 @@ public:
     Node* shiftRight();
 
     // Constructor and Destructor
-    Node(std::vector<std::vector<char>> board, Node *parent);
+    Node(std::vector<std::vector<char>> board, Node *parent, int depth);
     ~Node();
 };
 

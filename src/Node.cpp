@@ -1,10 +1,11 @@
 #include "../header/Node.h"
 
-Node::Node(std::vector<std::vector<char>> board, Node *parent)
+Node::Node(std::vector<std::vector<char>> board, Node *parent, int depth)
 {
     this->board = board;
     this->parent = parent;
     this->cost = this->calculateCost();
+    this->depth = depth;
 }
 
 Node::~Node()
@@ -94,9 +95,9 @@ Node* Node::shiftDown(){
     std::vector<std::vector<char>> tmpBoard = this->getBoard();
     std::pair<int, int> location = this->findEmpty();
 
-    board[location.first][location.second] = board[location.first + 1][location.second];
-    board[location.first + 1][location.second] = '0';
-    Node* res = new Node(board, this);
+    tmpBoard[location.first][location.second] = tmpBoard[location.first + 1][location.second];
+    tmpBoard[location.first + 1][location.second] = '0';
+    Node* res = new Node(tmpBoard, this, depth + 1);
     return res;
 }
 
@@ -107,9 +108,9 @@ Node* Node::shiftUp(){
     std::vector<std::vector<char>> tmpBoard = this->getBoard();
     std::pair<int, int> location = this->findEmpty();
 
-    board[location.first][location.second] = board[location.first - 1][location.second];
-    board[location.first - 1][location.second] = '0';
-    Node* res = new Node(board, this);
+    tmpBoard[location.first][location.second] = tmpBoard[location.first - 1][location.second];
+    tmpBoard[location.first - 1][location.second] = '0';
+    Node* res = new Node(board, this, depth + 1);
     return res;
 }
 
@@ -120,9 +121,9 @@ Node* Node::shiftLeft(){
     std::vector<std::vector<char>> tmpBoard = this->getBoard();
     std::pair<int, int> location = this->findEmpty();
 
-    board[location.first][location.second] = board[location.first][location.second - 1];
-    board[location.first][location.second - 1] = '0';
-    Node* res = new Node(board, this);
+    tmpBoard[location.first][location.second] = tmpBoard[location.first][location.second - 1];
+    tmpBoard[location.first][location.second - 1] = '0';
+    Node* res = new Node(tmpBoard, this, depth + 1);
     return res;
 }
 
@@ -133,9 +134,9 @@ Node* Node::shiftRight(){
     std::vector<std::vector<char>> tmpBoard = this->getBoard();
     std::pair<int, int> location = this->findEmpty();
 
-    board[location.first][location.second] = board[location.first][location.second + 1];
-    board[location.first][location.second + 1] = '0';
-    Node* res = new Node(board, this);
+    tmpBoard[location.first][location.second] = tmpBoard[location.first][location.second + 1];
+    tmpBoard[location.first][location.second + 1] = '0';
+    Node* res = new Node(tmpBoard, this, depth + 1);
     return res;
 }
 
@@ -152,67 +153,41 @@ bool Node::isSolvable(){
         }
     }
 
-     for(int i = 0; i < 3 ; i++){
-            for(int j =i+1 ; j < 3 ; j++){
-                if(temp[j]>temp[i]){
-                    inversions++;
-                }
-            }
+     for(int i = 0; i < 8 ; i++){
+         for(int j = i + 1; j < 9; j++)
+            if((temp[i] - '0' > temp[j] - '0') && temp[i] != '0' && temp[j] != '0')
+                inversions++;
         }
-
-    if(inversions % 2 == 1){
-        return false;
-    }
-    else{
-        return true;
-    }
+    return (inversions % 2 == 0);
 }
 
 // The cost function is defined as the number of misplaced tiles on the board.
 int Node::calculateCost(){ //  1 2 3 4 5 6 7 8  0
     int boardDifference = 0;
-    std::vector<char> temp;
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            temp.push_back(board[i][j]);
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 3; j++) {
+            if(i != 2 && j != 2 && (board[i][j] - '0') != ((i * 3) + j + 1)) {
+                boardDifference++;
+            }
         }
-    }
-    char curr = '1';
-    for(int i  = 0; i < temp.size() - 1; i++){
-        if(temp[i] != curr){
-            boardDifference++;
-        }
-        curr++;
-    }
-    if(temp[temp.size() - 1] != '0'){
-        boardDifference++;
     }
     return boardDifference;
 }
 
 
 bool Node::isSolution(){
-    std::vector<char> temp;
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            temp.push_back(board[i][j]);
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 3; j++) {
+            if(i == 2 && j == 2) {
+                if(board[i][j] != '0')
+                    return false;
+            }
+            else {
+                if((board[i][j] - '0') != ((i * 3) + j + 1)) {
+                    return false;
+                }
+            }
         }
-    }
-    char curr = '1';
-    for (int i = 0; i < temp.size() - 1; i++)
-    {
-        if (temp[i] != curr)
-        {
-            return false;
-        }
-    }
-    if (temp[temp.size() - 1] != '0')
-    {
-        return false;
     }
     return true;
 }

@@ -5,7 +5,7 @@ struct CustomCompare
 { 
     bool operator()(Node* lhs, Node* rhs)
     {
-        return lhs->getCost() < rhs->getCost();
+        return (lhs->getCost() + lhs->getDepth() > rhs->getCost() + rhs->getDepth());
     }
 };
 
@@ -22,22 +22,23 @@ Search::~Search()
 
 void Search::UniformCostSearch() //    priority_queue<int,CustomCompare > pq;
 {
+    
     std::priority_queue<Node *, std::vector<Node*>, CustomCompare> q;
     q.push(root);
 
     while (!q.empty())
     {
+
         Node *temp = q.top();
+        q.pop();
 
         if(temp->isSolution()) {
             temp->print();
             return;
         }
         
-        if(!temp->isSolvable()){
-            q.pop();
-        }
-        else{
+
+        if(temp->isSolvable()){
             Node* left = temp->shiftLeft();
             Node* up = temp->shiftUp();
             Node* down = temp->shiftDown();
