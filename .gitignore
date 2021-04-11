@@ -31,4 +31,11 @@
 *.out
 *.app
 
+# VS crap
 *.json
+.vscode/settings.json
+
+# CMake stuff
+CMakeFiles/
+build/
+CMakeCache.txt
