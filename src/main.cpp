@@ -4,9 +4,11 @@ using namespace std;
 int main()
 {
     vector<vector<char>> board = {
-        {'0', '1', '3'},
-        {'4', '2', '5'},
-        {'7', '8', '6'},
+        // normal:
+        {'8', '7', '1'}, // up:
+        {'6', '0', '2'}, // left:
+        {'5', '4', '3'}, // right:
+
     };
     Node *root = new Node(board, nullptr, 0);
     Search *search = new Search(root);

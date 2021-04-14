@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.13.4)
 
 project(Eight_Puzzle)
+SET(CMAKE_CXX_STANDARD 11)
+
+
 
 set (EIGHT_PUZZLE_SOURCES
         src/main.cpp 
