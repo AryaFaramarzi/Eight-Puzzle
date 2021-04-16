@@ -4,7 +4,8 @@ Node::Node(std::vector<std::vector<char>> board, Node *parent, int depth)
 {
     this->board = board;
     this->parent = parent;
-    this->cost = this->calculateCost();
+    this->costEucledian = this->calculateCostEucledian();
+    this->costMisplace = this->calculateCostMistile();
     this->depth = depth;
 }
 
@@ -30,7 +31,6 @@ bool Node::upValid()
 {
     if (board[0][0] != '0' and board[0][1] != '0' and board[0][2] != '0')
     {
-        std::cout << "TESTING" << std::endl;
         return true;
     }
     else
@@ -106,8 +106,6 @@ Node *Node::shiftDown()
 
 Node *Node::shiftUp()
 {
-
-    std::cout << "UP CALLED" << std::endl;
     if (!upValid())
     {
         return nullptr;
@@ -176,7 +174,7 @@ bool Node::isSolvable()
 }
 
 // The cost function is defined as the number of misplaced tiles on the board.
-int Node::calculateCost()
+int Node::calculateCostMistile()
 { //  1 2 3 4 5 6 7 8  0
     int boardDifference = 0;
     for (int i = 0; i < 3; i++)
@@ -186,6 +184,26 @@ int Node::calculateCost()
             if (i != 2 && j != 2 && (board[i][j] - '0') != ((i * 3) + j + 1))
             {
                 boardDifference++;
+            }
+        }
+    }
+    return boardDifference;
+}
+double Node::calculateCostEucledian()
+{ //  1 2 3 4 5 6 7 8  0
+    double boardDifference = 0.0;
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (board[i][j] != '0')
+            {
+                int num = board[i][j] - 1;
+                int x = num / 3;     //  0                i = 0 j = 0 => i = 1 j = 1
+                int y = num % 3;     // 1
+                int dx = abs(x - i); // 0
+                int dy = abs(y - j); // 1
+                boardDifference += sqrt(dx * dx + dy * dy);
             }
         }
     }

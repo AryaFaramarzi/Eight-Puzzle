@@ -12,7 +12,7 @@ struct customCompareMistile
 {
     bool operator()(Node *lhs, Node *rhs)
     {
-        return (lhs->getCost() + lhs->getDepth() > rhs->getCost() + rhs->getDepth());
+        return (lhs->getCostMisplace() + lhs->getDepth() > rhs->getCostMisplace() + rhs->getDepth());
     }
 };
 
@@ -20,13 +20,14 @@ struct customCompareEucledian
 {
     bool operator()(Node *lhs, Node *rhs)
     {
-        return (lhs->getCost() + lhs->getDepth() > rhs->getCost() + rhs->getDepth());
+        return (lhs->getCostEucliedian() + lhs->getDepth() > rhs->getCostEucliedian() + rhs->getDepth());
     }
 };
 
 Search::Search(Node *root)
 {
     this->root = root;
+    this->nodes = 0;
 }
 
 Search::~Search()
@@ -39,7 +40,7 @@ void Search::UniformCostSearch() //    priority_queue<int,CustomCompare > pq;
 {
 
     std::priority_queue<Node *, std::vector<Node *>, customCompareUCS> q;
-
+    std::set<std::vector<std::vector<char>>> explored;
     if (!root->isSolvable())
     {
         std::cout << "Puzzle entered is not solveable" << std::endl;
@@ -52,6 +53,7 @@ void Search::UniformCostSearch() //    priority_queue<int,CustomCompare > pq;
     {
 
         Node *temp = q.top();
+
         q.pop();
 
         //std::cout << "The cost + depth squared is: " << temp->getCost() + pow(temp->getDepth(), 2) << std::endl;
@@ -64,7 +66,7 @@ void Search::UniformCostSearch() //    priority_queue<int,CustomCompare > pq;
             return;
         }
 
-        if (temp->isSolvable())
+        if (temp->isSolvable() && explored.count(temp->getBoard()) == 0)
         {
             Node *left = temp->shiftLeft();
             Node *up = temp->shiftUp();
@@ -87,13 +89,16 @@ void Search::UniformCostSearch() //    priority_queue<int,CustomCompare > pq;
                 q.push(down);
             }
         }
+        // explored.insert(temp->getBoard());
+        this->nodes++;
     }
 }
 
 void Search::MisplacedTilesSearch() //    priority_queue<int,CustomCompare > pq;
 {
-
+    //int count = 0;
     std::priority_queue<Node *, std::vector<Node *>, customCompareMistile> q;
+    std::set<std::vector<std::vector<char>>> explored;
 
     if (!root->isSolvable())
     {
@@ -119,8 +124,9 @@ void Search::MisplacedTilesSearch() //    priority_queue<int,CustomCompare > pq;
             return;
         }
 
-        if (temp->isSolvable())
+        if (temp->isSolvable() && explored.count(temp->getBoard()) == 0)
         {
+            //count++;
             Node *left = temp->shiftLeft();
             Node *up = temp->shiftUp();
             Node *down = temp->shiftDown();
@@ -142,6 +148,8 @@ void Search::MisplacedTilesSearch() //    priority_queue<int,CustomCompare > pq;
                 q.push(down);
             }
         }
+        // explored.insert(temp->getBoard());
+        this->nodes++;
     }
 }
 
