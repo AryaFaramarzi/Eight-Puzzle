@@ -62,6 +62,8 @@ void Search::UniformCostSearch() //    priority_queue<int,CustomCompare > pq;
 
         if (temp->isSolution())
         {
+            std::cout << " ------------------------------------------- " << std::endl;
+            std::cout << "Steps taken to solve the puzzle is as follows: " << std::endl;
             temp->print();
             return;
         }
@@ -120,6 +122,8 @@ void Search::MisplacedTilesSearch() //    priority_queue<int,CustomCompare > pq;
 
         if (temp->isSolution())
         {
+            std::cout << " ------------------------------------------- " << std::endl;
+            std::cout << "Steps taken to solve the puzzle is as follows: " << std::endl;
             temp->print();
             return;
         }
@@ -157,6 +161,7 @@ void Search::EucledianDistanceSearch() //    priority_queue<int,CustomCompare > 
 {
 
     std::priority_queue<Node *, std::vector<Node *>, customCompareEucledian> q;
+    std::set<std::vector<std::vector<char>>> explored;
 
     if (!root->isSolvable())
     {
@@ -178,11 +183,13 @@ void Search::EucledianDistanceSearch() //    priority_queue<int,CustomCompare > 
 
         if (temp->isSolution())
         {
+            std::cout << " ------------------------------------------- " << std::endl;
+            std::cout << "Steps taken to solve the puzzle is as follows: " << std::endl;
             temp->print();
             return;
         }
 
-        if (temp->isSolvable())
+        if (temp->isSolvable() && explored.count(temp->getBoard()) == 0)
         {
             Node *left = temp->shiftLeft();
             Node *up = temp->shiftUp();
@@ -205,5 +212,7 @@ void Search::EucledianDistanceSearch() //    priority_queue<int,CustomCompare > 
                 q.push(down);
             }
         }
+        explored.insert(temp->getBoard());
+        this->nodes++;
     }
 }
