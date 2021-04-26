@@ -1,15 +1,9 @@
 #include "../header/Node.h"
 #include "../header/Search.h"
-#include <ctime>
 
 using namespace std;
 int main()
 {
-    std::clock_t start;
-    double duration;
-
-    start = std::clock();
-    // doable board
     std::cout << " Welcome to afara027 and ezhu010 8 puzzle solver." << std::endl;
     std::cout << "Type \"1\" to use a default puzzle, or \"2\" to enter your own puzzle." << std::endl;
     int choice;
@@ -17,10 +11,10 @@ int main()
     std::vector<std::vector<char>> board(3, std::vector<char>(3, '0'));
     if (choice == 1)
     {
-        // DOABLE !!
-        board = {{'1', '2', '3'},
-                 {'4', '5', '6'},
-                 {'8', '7', '0'}};
+
+        board = {{'0', '1', '2'},
+                 {'4', '5', '3'},
+                 {'7', '8', '6'}};
     }
 
     else
@@ -65,8 +59,4 @@ int main()
         std::cout << "Total number of nodes generated is: " << search->getNodes() << std::endl;
         break;
     }
-
-    duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
-
-    std::cout << "Duration: " << duration << '\n';
 }

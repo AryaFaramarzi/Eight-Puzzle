@@ -233,13 +233,38 @@ bool Node::isSolution()
     return true;
 }
 
-void Node::print()
+void Node::printUniform()
 {
     if (this == nullptr)
     {
         return;
     }
-    getParent()->print();
+    getParent()->printUniform();
+    std::cout << "The best state to expand with g(n) = " << this->getDepth() << std::endl;
+    this->printBoard();
+    std::cout << std::endl;
+}
+
+void Node::printMisplaced()
+{
+    if (this == nullptr)
+    {
+        return;
+    }
+    getParent()->printMisplaced();
+    std::cout << "The best state to expand with g(n) = " << this->getDepth() << " and with h(n) = " << this->getCostMisplace() << std::endl;
+    this->printBoard();
+    std::cout << std::endl;
+}
+
+void Node::printEucledian()
+{
+    if (this == nullptr)
+    {
+        return;
+    }
+    getParent()->printEucledian();
+    std::cout << "The best state to expand with g(n) = " << this->getDepth() << " and with h(n) = " << this->getCostEucliedian() << std::endl;
     this->printBoard();
     std::cout << std::endl;
 }

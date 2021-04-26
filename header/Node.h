@@ -35,7 +35,9 @@ public:
     int calculateCostMistile();
     double calculateCostEucledian();
     bool isSolution();
-    void print();
+    void printUniform();
+    void printMisplaced();
+    void printEucledian();
 
     // Methods to create child nodes
     Node *shiftDown();
