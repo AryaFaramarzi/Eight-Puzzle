@@ -240,9 +240,27 @@ void Node::printUniform()
         return;
     }
     getParent()->printUniform();
+    std::pair<int, int> parentEmpty = getParent()->findEmpty();
+    std::pair<int, int> thisEmpty = this->findEmpty();
     std::cout << "The best state to expand with g(n) = " << this->getDepth() << std::endl;
     this->printBoard();
     std::cout << std::endl;
+    if(parentEmpty.first == thisEmpty.first) { // up or down
+        if(parentEmpty.second > thisEmpty.second) { // down
+            std::cout << "shifting the empty tile down" << std::endl;
+        }
+        else {
+            std::cout << "shifting the empty tile up" << std::endl;
+        }
+    }
+    else {
+        if(parentEmpty.first > thisEmpty.first) { // down
+            std::cout << "shifting the empty tile left" << std::endl;
+        }
+        else {
+            std::cout << "shifting the empty tile right" << std::endl;
+        }
+    }
 }
 
 void Node::printMisplaced()
@@ -252,9 +270,27 @@ void Node::printMisplaced()
         return;
     }
     getParent()->printMisplaced();
+    std::pair<int, int> parentEmpty = getParent()->findEmpty();
+    std::pair<int, int> thisEmpty = this->findEmpty();
     std::cout << "The best state to expand with g(n) = " << this->getDepth() << " and with h(n) = " << this->getCostMisplace() << std::endl;
     this->printBoard();
     std::cout << std::endl;
+    if(parentEmpty.first == thisEmpty.first) { // up or down
+        if(parentEmpty.second > thisEmpty.second) { // down
+            std::cout << "shifting the empty tile down" << std::endl;
+        }
+        else {
+            std::cout << "shifting the empty tile up" << std::endl;
+        }
+    }
+    else {
+        if(parentEmpty.first > thisEmpty.first) { // down
+            std::cout << "shifting the empty tile left" << std::endl;
+        }
+        else {
+            std::cout << "shifting the empty tile right" << std::endl;
+        }
+    }
 }
 
 void Node::printEucledian()
@@ -263,8 +299,32 @@ void Node::printEucledian()
     {
         return;
     }
+    std::pair<int, int> parentEmpty = getParent()->findEmpty();
+    std::pair<int, int> thisEmpty = this->findEmpty();
     getParent()->printEucledian();
     std::cout << "The best state to expand with g(n) = " << this->getDepth() << " and with h(n) = " << this->getCostEucliedian() << std::endl;
     this->printBoard();
     std::cout << std::endl;
+    if (parentEmpty.first == thisEmpty.first)
+    { // up or down
+        if (parentEmpty.second > thisEmpty.second)
+        { // down
+            std::cout << "shifting the empty tile down" << std::endl;
+        }
+        else
+        {
+            std::cout << "shifting the empty tile up" << std::endl;
+        }
+    }
+    else
+    {
+        if (parentEmpty.first > thisEmpty.first)
+        { // down
+            std::cout << "shifting the empty tile left" << std::endl;
+        }
+        else
+        {
+            std::cout << "shifting the empty tile right" << std::endl;
+        }
+    }
 }
