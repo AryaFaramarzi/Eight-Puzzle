@@ -247,18 +247,18 @@ void Node::printUniform()
     std::cout << std::endl;
     if(parentEmpty.first == thisEmpty.first) { // up or down
         if(parentEmpty.second > thisEmpty.second) { // down
-            std::cout << "shifting the empty tile down" << std::endl;
-        }
-        else {
-            std::cout << "shifting the empty tile up" << std::endl;
-        }
-    }
-    else {
-        if(parentEmpty.first > thisEmpty.first) { // down
             std::cout << "shifting the empty tile left" << std::endl;
         }
         else {
             std::cout << "shifting the empty tile right" << std::endl;
+        }
+    }
+    else {
+        if(parentEmpty.first > thisEmpty.first) { // down
+            std::cout << "shifting the empty tile down" << std::endl;
+        }
+        else {
+            std::cout << "shifting the empty tile up" << std::endl;
         }
     }
 }
@@ -277,18 +277,18 @@ void Node::printMisplaced()
     std::cout << std::endl;
     if(parentEmpty.first == thisEmpty.first) { // up or down
         if(parentEmpty.second > thisEmpty.second) { // down
-            std::cout << "shifting the empty tile down" << std::endl;
-        }
-        else {
-            std::cout << "shifting the empty tile up" << std::endl;
-        }
-    }
-    else {
-        if(parentEmpty.first > thisEmpty.first) { // down
             std::cout << "shifting the empty tile left" << std::endl;
         }
         else {
             std::cout << "shifting the empty tile right" << std::endl;
+        }
+    }
+    else {
+        if(parentEmpty.first > thisEmpty.first) { // down
+            std::cout << "shifting the empty tile down" << std::endl;
+        }
+        else {
+            std::cout << "shifting the empty tile up" << std::endl;
         }
     }
 }
@@ -311,25 +311,25 @@ void Node::printEucledian()
     std::cout << std::endl;
     if(getParent() != nullptr){
         if (parentEmpty.first == thisEmpty.first)
-        { // up or down
+        { 
             if (parentEmpty.second > thisEmpty.second)
-            { // down
-                std::cout << "shifting the empty tile down" << std::endl;
+            { // 
+                std::cout << "shifting the empty tile left" << std::endl;
             }
             else
             {
-                std::cout << "shifting the empty tile up" << std::endl;
+                std::cout << "shifting the empty tile right" << std::endl;
             }
         }
         else
         {
             if (parentEmpty.first > thisEmpty.first)
             { // down
-                std::cout << "shifting the empty tile left" << std::endl;
+                std::cout << "shifting the empty tile down" << std::endl;
             }
             else
             {
-                std::cout << "shifting the empty tile right" << std::endl;
+                std::cout << "shifting the empty tile up" << std::endl;
             }
         }
     }
